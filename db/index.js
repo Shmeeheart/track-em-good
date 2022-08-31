@@ -24,9 +24,19 @@ async function addRole(data) {
   return connection.promise().query('INSERT into role SET ?', data);
 }
 
+async function addDepartment(data) {
+  return connection.promise().query('INSERT into department SET ?', data);
+}
+
+async function addEmployee(data) {
+  return connection.promise().query('INSERT into employee SET ?', data);
+}
+
 module.exports = {
   findAllDepartments,
   findAllEmployees,
   findAllRoles,
   addRole,
+  addDepartment,
+  addEmployee,
 };
