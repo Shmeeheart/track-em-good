@@ -85,11 +85,23 @@ async function viewAllRoles() {
   init();
 }
 
+async function promptAddDepartment() {
+  const newDepartment = await inquirer.prompt([
+    {
+      type: 'input',
+      name: 'name',
+      message: 'What is the name of the department?',
+    },
+  ]);
+  const db = await addDepartment(newDepartment);
+  console.log('You just created a new department!');
+  init();
+}
+
 async function promptAddRole() {
-  const deps = await findAllDepartments();
-  const depsChoices = deps[0].map((dept) => ({
-    name: dept.name,
-    value: dept.id,
+  const depsChoices = deps[0].map((deps) => ({
+    name: deps.name,
+    value: deps.id,
   }));
   const newRole = await inquirer.prompt([
     {
@@ -114,21 +126,8 @@ async function promptAddRole() {
   init();
 }
 
-async function promptAddDepartment() {
-  const newDepartment = await inquirer.prompt([
-    {
-      type: 'input',
-      name: 'name',
-      message: 'What is the name of the department?',
-    },
-  ]);
-  const db = await addDepartment(newDepartment);
-  console.log('You just created a new department!');
-  init();
-}
-
 async function promptAddEmployee() {
-  const rolsChoices = rols[0].map((role) => ({
+  const rolesChoices = roles[0].map((role) => ({
     name: role.name,
     value: role.id,
   }));
@@ -151,7 +150,7 @@ async function promptAddEmployee() {
       type: 'list',
       name: 'role_id',
       message: 'Choose the appropriate role',
-      choices: rolsChoices,
+      choices: rolesChoices,
     },
     {
       type: 'list',

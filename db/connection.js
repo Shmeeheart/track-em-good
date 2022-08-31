@@ -6,13 +6,13 @@ const connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
   database: 'empTracker',
-  password: 'Shmeeisme@37'
+  password: 'Shmeeisme@37',
 });
 
 // Start server after DB connection
 connection.connect((err) => {
-    if (err) throw err;
-    console.log('Database connected.');
-  });
+  if (err) throw err;
+  console.log('Database connected.');
+});
 
 module.exports = connection;
