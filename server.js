@@ -1,3 +1,31 @@
+const db = require('./db/connection');
+const express = require('express');
+const apiRoutes = require('./routes/apiRoutes');
+
+const PORT = process.env.PORT || 3001;
+const app = express();
+
+// Express middleware
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
+// Use apiRoutes
+app.use('/api', apiRoutes);
+
+// Default response for any other request (Not Found)
+app.use((req, res) => {
+  res.status(404).end();
+});
+
+// Start server after DB connection
+db.connect((err) => {
+  if (err) throw err;
+  console.log('Database connected.');
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+});
+
 const inquirer = require('inquirer');
 
 const {
@@ -73,33 +101,33 @@ async function viewAllRoles() {
   init();
 }
 
-async function promptAddRole() {
-  const deps = await findAllDepartments();
-  const depsChoices = deps[0].map((dept) => ({
-    name: dept.name,
-    value: dept.id,
-  }));
-  const newRole = await inquirer.prompt([
-    {
-      type: 'input',
-      name: 'title',
-      message: 'What is the role title?',
-    },
-    {
-      type: 'input',
-      name: 'salary',
-      message: 'What is the salary for this role?',
-    },
-    {
-      type: 'list',
-      name: 'department_id',
-      message: 'Choose the appropriate department',
-      choices: depsChoices,
-    },
-  ]);
-  const db = await addRole(newRole);
-  console.log('You just created a new role!');
-  init();
-}
+// async function promptAddRole() {
+//   const deps = await findAllDepartments();
+//   const depsChoices = deps[0].map((dept) => ({
+//     name: dept.name,
+//     value: dept.id,
+//   }));
+//   const newRole = await inquirer.prompt([
+//     {
+//       type: 'input',
+//       name: 'title',
+//       message: 'What is the role title?',
+//     },
+//     {
+//       type: 'input',
+//       name: 'salary',
+//       message: 'What is the salary for this role?',
+//     },
+//     {
+//       type: 'list',
+//       name: 'department_id',
+//       message: 'Choose the appropriate department',
+//       choices: depsChoices,
+//     },
+//   ]);
+//   const db = await addRole(newRole);
+//   console.log('You just created a new role!');
+//   init();
+// }
 
 init();
