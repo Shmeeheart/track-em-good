@@ -13,7 +13,8 @@ Javascript
 Contributors: 
 Jennifer Goodwin (Shmeeheart)
 
-Image: <img width="1440" alt="Screen Shot 2022-08-30 at 2 52 58 PM" src="https://user-images.githubusercontent.com/99705924/187579821-09d51a6e-a7d1-496c-bd50-64dcc94cc52f.png">
+Image: ![E975709D-1A99-47DE-B98C-BDB45DDBADC7](https://user-images.githubusercontent.com/99705924/187580263-c01f72a0-5889-485a-843b-cbaaeb1de807.jpeg)
+
 
 Walkthrough Video: 
 
