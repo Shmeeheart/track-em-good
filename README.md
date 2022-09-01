@@ -16,7 +16,7 @@ Jennifer Goodwin (Shmeeheart)
 Image: ![E975709D-1A99-47DE-B98C-BDB45DDBADC7](https://user-images.githubusercontent.com/99705924/187580263-c01f72a0-5889-485a-843b-cbaaeb1de807.jpeg)
 
 
-Walkthrough Video: 
+Walkthrough Video: https://youtu.be/tYaHyhgwwvI
 
 Github Repository: 
 https://github.com/Shmeeheart/track-em-good/
