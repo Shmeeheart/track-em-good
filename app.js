@@ -1,5 +1,5 @@
 const inquirer = require('inquirer');
-const db = require('./db/connection');
+// const db = require('./db/connection');
 
 const {
   findAllEmployees,
@@ -30,33 +30,29 @@ function init() {
         ],
       },
     ])
-    .then((answers) => {
-      if (answers.answer === 'view all departments') {
-        viewAllDepartments();
-      } else if (answers.answer === 'view all roles') {
-        viewAllRoles();
-      } else if (answers.answer === 'view all employees') {
-        viewAllEmployees();
-      } else if (answers.answer === 'add a department') {
-      } else if (answers.answer === 'add a role') {
-        promptAddDepartment();
-      } else if (answers.answer === 'add a role') {
-      } else if (answers.answer === 'add a new employee') {
-        promptAddRole();
-      } else if (answers.answer === 'add an employee') {
-      } else if (answers.answer === 'update an employee role') {
-        promptAddEmployee();
-      } else if (answers.answer === 'update an employee role') {
-      } else if (answers.answer === 'done') {
-        promptUpdateRole();
-      } else if (answers.answer === 'view all departments') {
-      } else if (answers.answer === 'view all roles') {
-      } else {
-        process.exit();
+    .then(
+      (answers) => {
+        if (answers.answer === 'view all departments') {
+          viewAllDepartments();
+        } else if (answers.answer === 'view all roles') {
+          viewAllRoles();
+        } else if (answers.answer === 'view all employees') {
+          viewAllEmployees();
+        } else if (answers.answer === 'add a department') {
+          promptAddDepartment();
+        } else if (answers.answer === 'add a role') {
+          promptAddRole();
+        } else if (answers.answer === 'add an employee') {
+          promptAddEmployee();
+        } else if (answers.answer === 'update an employee role') {
+          promptUpdateRole();
+        } else if (answers.answer === 'done') {
+          process.exit();
+        }
       }
 
       // Use user feedback for... whatever!!
-    })
+    )
     .catch((error) => {
       if (error.isTtyError) {
         // Prompt couldn't be rendered in the current environment
@@ -93,16 +89,19 @@ async function promptAddDepartment() {
       message: 'What is the name of the department?',
     },
   ]);
-  const db = await addDepartment(newDepartment);
+
+  const newDept = await addDepartment(newDepartment);
   console.log('You just created a new department!');
   init();
 }
 
 async function promptAddRole() {
+  const deps = await findAllDepartments();
   const depsChoices = deps[0].map((deps) => ({
     name: deps.name,
     value: deps.id,
   }));
+  console.log(depsChoices);
   const newRole = await inquirer.prompt([
     {
       type: 'input',
@@ -127,14 +126,19 @@ async function promptAddRole() {
 }
 
 async function promptAddEmployee() {
+  const roles = await findAllRoles();
+  const mngs = await findAllEmployees();
+  console.log(mngs[0]);
   const rolesChoices = roles[0].map((role) => ({
-    name: role.name,
+    name: role.title,
     value: role.id,
   }));
+  console.log(rolesChoices);
   const mngChoices = mngs[0].map((manager) => ({
-    name: manager.name,
+    name: manager.first_name,
     value: manager.id,
   }));
+  console.log(mngChoices);
   const newEmployee = await inquirer.prompt([
     {
       type: 'input',
